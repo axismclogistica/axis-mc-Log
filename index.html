@@ -24,11 +24,21 @@ width:100%;
 z-index:1000;
 }
 
-.logo img{height:50px}
+/* LOGO MÁS GRANDE */
+.logo img{
+height:80px;
+}
 
 .menu{
-display:flex;
-gap:25px;
+display:none;
+flex-direction:column;
+background:black;
+position:absolute;
+top:80px;
+right:8%;
+padding:20px;
+border-radius:10px;
+gap:15px;
 }
 
 .menu a{
@@ -39,8 +49,9 @@ transition:.3s;
 
 .menu a:hover{color:#00bfff}
 
+.menu.active{display:flex}
+
 .hamburger{
-display:none;
 font-size:28px;
 cursor:pointer;
 }
@@ -77,14 +88,28 @@ transition:.3s;
 
 .btn:hover{background:#008acb}
 
-section{padding:100px 8%}
-.section-title{text-align:center;margin-bottom:50px;font-size:30px}
+section{padding:120px 8%}
+.section-title{text-align:center;margin-bottom:40px;font-size:32px}
 
-.quienes{
-max-width:800px;
+/* QUIÉNES SOMOS MEJORADO */
+.quienes-section{
+background:linear-gradient(135deg,#111827,#1f2937);
+border-radius:20px;
+padding:60px;
+max-width:900px;
 margin:auto;
 text-align:center;
-line-height:1.7;
+line-height:1.8;
+box-shadow:0 0 40px rgba(0,0,0,0.5);
+}
+
+.mensaje-propietarios{
+margin-top:40px;
+padding:30px;
+background:rgba(0,191,255,0.1);
+border-left:4px solid #00bfff;
+border-radius:10px;
+font-style:italic;
 }
 
 form{
@@ -114,12 +139,7 @@ padding:15px 20px;
 border-radius:50px;
 text-decoration:none;
 font-weight:600;
-}
-
-@media(max-width:768px){
-.menu{display:none;flex-direction:column;background:black;position:absolute;top:70px;right:0;padding:20px}
-.menu.active{display:flex}
-.hamburger{display:block}
+box-shadow:0 0 20px rgba(0,0,0,.4);
 }
 
 footer{
@@ -145,7 +165,7 @@ color:#777;
 <a href="#mapa">Cobertura</a>
 </div>
 
-<div class="hamburger" onclick="toggleMenu()">☰</div>
+<div class="hamburger" onclick="toggleMenu()">☰ Menú</div>
 </nav>
 
 <section class="hero" id="inicio">
@@ -156,8 +176,20 @@ color:#777;
 
 <section id="quienes">
 <h2 class="section-title">Quiénes Somos</h2>
-<div class="quienes">
-Somos una empresa familiar dedicada a brindar servicios de logística y mensajería con altos estándares de responsabilidad y compromiso. Nuestro objetivo es convertirnos en un aliado estratégico para empresas y comercios que necesitan soluciones eficientes de transporte y distribución.
+
+<div class="quienes-section">
+Somos una empresa familiar dedicada a brindar servicios de logística y mensajería con altos estándares de responsabilidad y compromiso. 
+
+Nuestro objetivo es convertirnos en un aliado estratégico para empresas y comercios que necesitan soluciones eficientes de transporte y distribución en Costa Rica.
+
+<div class="mensaje-propietarios">
+"En Axis MC Logística creemos que cada entrega representa la confianza de nuestros clientes. Trabajamos personalmente para asegurar puntualidad, responsabilidad y excelencia en cada servicio."
+
+<br><br>
+— Joseph Morales & Karol Morales  
+Propietarios
+</div>
+
 </div>
 </section>
 
@@ -194,7 +226,11 @@ src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.069617390635!2d-
 © 2026 Axis MC Logística | Costa Rica
 </footer>
 
-<a href="https://wa.me/506XXXXXXXX" class="whatsapp" target="_blank">WhatsApp</a>
+<!-- WHATSAPP CON MENSAJE AUTOMÁTICO -->
+<a href="https://wa.me/50664541075?text=Hola%20Axis%20MC%20Log%C3%ADstica,%20me%20gustar%C3%ADa%20solicitar%20informaci%C3%B3n%20sobre%20sus%20servicios."
+class="whatsapp" target="_blank">
+WhatsApp
+</a>
 
 <script>
 function toggleMenu(){
