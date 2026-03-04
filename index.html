@@ -12,7 +12,6 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Montserrat',sans-serif;background:#0c0f14;color:white;scroll-behavior:smooth}
 
-/* NAV */
 nav{
 background:rgba(0,0,0,.95);
 padding:15px 8%;
@@ -24,10 +23,7 @@ width:100%;
 z-index:1000;
 }
 
-/* LOGO MÁS GRANDE */
-.logo img{
-height:80px;
-}
+.logo img{height:80px;}
 
 .menu{
 display:none;
@@ -41,22 +37,12 @@ border-radius:10px;
 gap:15px;
 }
 
-.menu a{
-color:white;
-text-decoration:none;
-transition:.3s;
-}
-
+.menu a{color:white;text-decoration:none;transition:.3s;}
 .menu a:hover{color:#00bfff}
-
 .menu.active{display:flex}
 
-.hamburger{
-font-size:28px;
-cursor:pointer;
-}
+.hamburger{font-size:28px;cursor:pointer;}
 
-/* HERO */
 .hero{
 height:100vh;
 background:linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8)),
@@ -91,7 +77,6 @@ transition:.3s;
 section{padding:120px 8%}
 .section-title{text-align:center;margin-bottom:40px;font-size:32px}
 
-/* QUIÉNES SOMOS MEJORADO */
 .quienes-section{
 background:linear-gradient(135deg,#111827,#1f2937);
 border-radius:20px;
@@ -178,7 +163,7 @@ color:#777;
 <h2 class="section-title">Quiénes Somos</h2>
 
 <div class="quienes-section">
-Somos una empresa familiar dedicada a brindar servicios de logística y mensajería con altos estándares de responsabilidad y compromiso. 
+Somos una empresa familiar dedicada a brindar servicios de logística y mensajería con altos estándares de responsabilidad y compromiso.
 
 Nuestro objetivo es convertirnos en un aliado estratégico para empresas y comercios que necesitan soluciones eficientes de transporte y distribución en Costa Rica.
 
@@ -189,7 +174,6 @@ Nuestro objetivo es convertirnos en un aliado estratégico para empresas y comer
 — Joseph Morales & Karol Morales  
 Propietarios
 </div>
-
 </div>
 </section>
 
@@ -201,17 +185,18 @@ Propietarios
 <input type="tel" name="telefono" placeholder="Teléfono" required>
 <input type="email" name="correo" placeholder="Correo electrónico" required>
 
-<select name="servicio" required>
+<select name="servicio" id="servicio" required>
 <option value="">Seleccione el servicio</option>
-<option>Entrega Express</option>
-<option>Mensajería Empresarial</option>
-<option>Distribución Programada</option>
-<option>Recolección de Documentos</option>
+<option value="Entrega Express">Entrega Express</option>
+<option value="Mensajería Empresarial">Mensajería Empresarial</option>
+<option value="Distribución Programada">Distribución Programada</option>
+<option value="Recolección de Documentos">Recolección de Documentos</option>
+<option value="Consulta">Consulta General / Contáctenos</option>
 </select>
 
-<textarea name="mensaje" placeholder="Detalles del envío"></textarea>
+<textarea name="mensaje" placeholder="Escriba su consulta o detalles del envío"></textarea>
 
-<button class="btn">Enviar Solicitud</button>
+<button class="btn" id="btnEnviar">Enviar</button>
 </form>
 </section>
 
@@ -226,8 +211,7 @@ src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.069617390635!2d-
 © 2026 Axis MC Logística | Costa Rica
 </footer>
 
-<!-- WHATSAPP CON MENSAJE AUTOMÁTICO -->
-<a href="https://wa.me/50664541075?text=Hola%20Axis%20MC%20Log%C3%ADstica,%20me%20gustar%C3%ADa%20solicitar%20informaci%C3%B3n%20sobre%20sus%20servicios."
+<a href="https://wa.me/50664541075?text=Hola%20Axis%20MC%20Log%C3%ADstica,%20me%20gustar%C3%ADa%20informaci%C3%B3n%20sobre%20sus%20servicios."
 class="whatsapp" target="_blank">
 WhatsApp
 </a>
@@ -236,6 +220,19 @@ WhatsApp
 function toggleMenu(){
 document.getElementById("menu").classList.toggle("active");
 }
+
+/* BOTÓN DINÁMICO */
+document.getElementById("servicio").addEventListener("change", function(){
+const btn = document.getElementById("btnEnviar");
+
+if(this.value === "Consulta"){
+btn.textContent = "Enviar Mensaje";
+} else if(this.value === ""){
+btn.textContent = "Enviar";
+} else {
+btn.textContent = "Solicitar Servicio";
+}
+});
 
 (function(){
 emailjs.init("v8kBPgM0pxb-_Vd16");
@@ -250,8 +247,9 @@ emailjs.sendForm(
 this
 )
 .then(function(){
-alert("Solicitud enviada correctamente.");
+alert("Mensaje enviado correctamente.");
 document.getElementById("formulario").reset();
+document.getElementById("btnEnviar").textContent="Enviar";
 }, function(error){
 alert("Error al enviar. Revisa consola.");
 console.log(error);
