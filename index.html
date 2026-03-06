@@ -200,7 +200,200 @@ Propietarios
 <button class="btn" id="btnEnviar">Enviar</button>
 </form>
 </section>
+<section id="cotizador">
+<h2 class="section-title">Cotizador de Mensajería</h2>
 
+<div style="max-width:700px;margin:auto;background:#1f2937;padding:35px;border-radius:12px">
+
+<h3>Busqueda por Provincia (Limon - Puntarenas - Guanacaste)</h3>
+
+<label>Provincia</label>
+<select id="provincia">
+<option value="">Seleccione provincia</option>
+<option value="limon">Limón</option>
+<option value="guanacaste">Guanacaste</option>
+<option value="puntarenas">Puntarenas</option>
+</select>
+
+<label>Cantidad paquetes</label>
+<input type="number" id="cantidadProvincia" min="10">
+
+<p>Precio por entrega: ₡ <span id="precioProvincia">0</span></p>
+<p>Total a pagar: ₡ <span id="totalProvincia">0</span></p>
+
+<hr style="margin:30px 0">
+
+<h3>Busqueda por Cantón</h3>
+
+<label>Cantón</label>
+<select id="canton">
+<option value="">Seleccione cantón</option>
+
+<option value="San José">San José</option>
+<option value="Montes de Oca">Montes de Oca</option>
+<option value="Tibás">Tibás</option>
+<option value="Santa Ana">Santa Ana</option>
+<option value="Curridabat">Curridabat</option>
+<option value="Goicoechea">Goicoechea</option>
+<option value="Moravia">Moravia</option>
+<option value="Escazú">Escazú</option>
+<option value="Alajuelita">Alajuelita</option>
+
+<option value="Heredia">Heredia</option>
+<option value="Flores">Flores</option>
+<option value="Belén">Belén</option>
+<option value="Santa Bárbara">Santa Bárbara</option>
+<option value="Barva">Barva</option>
+
+<option value="Alajuela">Alajuela</option>
+<option value="Poás">Poás</option>
+<option value="Grecia">Grecia</option>
+<option value="Sarchí">Sarchí</option>
+<option value="Atenas">Atenas</option>
+
+<option value="Cartago">Cartago</option>
+<option value="La Unión">La Unión</option>
+<option value="Paraíso">Paraíso</option>
+<option value="Oreamuno">Oreamuno</option>
+
+<option value="Liberia">Liberia</option>
+<option value="Carrillo">Carrillo</option>
+<option value="Cañas">Cañas</option>
+<option value="Tilarán">Tilarán</option>
+<option value="Abangares">Abangares</option>
+
+</select>
+
+<label>Cantidad paquetes</label>
+<input type="number" id="cantidadCanton" value="1">
+
+<p>Precio por entrega: ₡ <span id="precioCanton">0</span></p>
+<p>Total a pagar: ₡ <span id="totalCanton">0</span></p>
+
+</div>
+</section>
+
+
+<script>
+
+/* PRECIOS PROVINCIAS (igual Excel) */
+
+const preciosProvincia={
+
+limon:[
+{min:10,max:15,precio:4000},
+{min:16,max:25,precio:3500},
+{min:26,max:30,precio:3000},
+{min:31,max:999,precio:2800}
+],
+
+guanacaste:[
+{min:10,max:15,precio:5500},
+{min:16,max:25,precio:5000},
+{min:26,max:30,precio:4500},
+{min:31,max:999,precio:4200}
+],
+
+puntarenas:[
+{min:10,max:15,precio:4500},
+{min:16,max:25,precio:4000},
+{min:26,max:30,precio:3500},
+{min:31,max:999,precio:3200}
+]
+
+};
+
+
+/* PRECIOS CANTONES */
+
+const preciosCantones={
+
+"San José":2500,
+"Montes de Oca":2500,
+"Tibás":2500,
+"Santa Ana":2500,
+"Curridabat":3000,
+"Goicoechea":3000,
+"Moravia":3000,
+"Escazú":3000,
+"Alajuelita":3000,
+
+"Heredia":2500,
+"Flores":2500,
+"Belén":2500,
+"Santa Bárbara":2500,
+"Barva":2500,
+
+"Alajuela":2500,
+"Poás":3000,
+"Grecia":4000,
+"Sarchí":4000,
+"Atenas":5000,
+
+"Cartago":4500,
+"La Unión":4500,
+"Paraíso":4500,
+"Oreamuno":4500,
+
+"Liberia":5000,
+"Carrillo":5000,
+"Cañas":7000,
+"Tilarán":7000,
+"Abangares":5000
+
+};
+
+
+
+/* CALCULO PROVINCIAS */
+
+function calcularProvincia(){
+
+let provincia=document.getElementById("provincia").value;
+let cantidad=parseInt(document.getElementById("cantidadProvincia").value);
+
+if(!provincia || !cantidad)return;
+
+let precio=0;
+
+preciosProvincia[provincia].forEach(rango=>{
+if(cantidad>=rango.min && cantidad<=rango.max){
+precio=rango.precio;
+}
+});
+
+document.getElementById("precioProvincia").innerText=precio.toLocaleString();
+document.getElementById("totalProvincia").innerText=(precio*cantidad).toLocaleString();
+
+}
+
+
+
+/* CALCULO CANTON */
+
+function calcularCanton(){
+
+let canton=document.getElementById("canton").value;
+let cantidad=parseInt(document.getElementById("cantidadCanton").value)||0;
+
+if(!canton)return;
+
+let precio=preciosCantones[canton];
+
+document.getElementById("precioCanton").innerText=precio.toLocaleString();
+document.getElementById("totalCanton").innerText=(precio*cantidad).toLocaleString();
+
+}
+
+
+
+document.getElementById("provincia").addEventListener("change",calcularProvincia);
+document.getElementById("cantidadProvincia").addEventListener("input",calcularProvincia);
+
+document.getElementById("canton").addEventListener("change",calcularCanton);
+document.getElementById("cantidadCanton").addEventListener("input",calcularCanton);
+
+</script>
 <section id="mapa">
 <h2 class="section-title">Zona de Cobertura</h2>
 <iframe height="400"
@@ -260,6 +453,7 @@ console.log(error);
 
 </body>
 </html>
+
 
 
 
