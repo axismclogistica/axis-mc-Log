@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -16,9 +17,7 @@ background:#0c0f14;
 color:white;
 display:flex;
 justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:20px;
+padding:30px;
 }
 
 .container{
@@ -33,7 +32,7 @@ box-shadow:0 0 40px rgba(0,0,0,.5);
 .logo{
 display:block;
 margin:auto;
-max-width:220px;
+width:180px;
 margin-bottom:20px;
 }
 
@@ -45,7 +44,6 @@ margin-bottom:25px;
 label{
 display:block;
 margin-top:15px;
-font-weight:600;
 }
 
 select,input{
@@ -54,56 +52,64 @@ padding:12px;
 border-radius:6px;
 border:none;
 margin-top:5px;
-font-size:16px;
 }
 
 .resultado{
-margin-top:25px;
+margin-top:20px;
 font-size:18px;
-background:#111827;
-padding:20px;
-border-radius:10px;
-line-height:1.8;
 }
 
 .whatsapp{
-display:block;
-text-align:center;
+display:inline-block;
 margin-top:20px;
-padding:14px;
+padding:12px 20px;
 background:#25D366;
 color:white;
 border-radius:8px;
 text-decoration:none;
-font-weight:700;
+font-weight:600;
+}
+
+.formulario{
+margin-top:40px;
+border-top:1px solid #374151;
+padding-top:30px;
+}
+
+button{
+margin-top:15px;
+padding:12px;
+width:100%;
+border:none;
+border-radius:8px;
+background:#2563eb;
+color:white;
+font-weight:600;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<img class="logo" src="https://github.com/axismclogistica/axis-mc-logistica/blob/main/Logo%20Axismc.png?raw=true">
+<img class="logo"
+src="https://github.com/axismclogistica/axis-mc-logistica/blob/main/Logo%20Axismc.png?raw=true">
 
 <h1>Cotizador Axis MC Logística</h1>
-
-<label>Provincia (opcional)</label>
-
-<select id="provincia">
-<option value="">Seleccione provincia</option>
-<option>Limon</option>
-<option>Puntarenas</option>
-<option>Guanacaste</option>
-</select>
 
 <label>Cantón</label>
 
 <select id="canton">
 
 <option value="">Seleccione cantón</option>
-
 <option>San José</option>
 <option>Montes de Oca</option>
 <option>Tibás</option>
@@ -116,16 +122,6 @@ font-weight:700;
 <option>Desamparados</option>
 <option>Vázquez de Coronado</option>
 <option>Aserrí</option>
-
-<option>Mora</option>
-<option>Acosta</option>
-<option>Puriscal</option>
-<option>Turrubares</option>
-<option>Dota</option>
-<option>Tarrazú</option>
-<option>León Cortés Castro</option>
-<option>Pérez Zeledón</option>
-
 <option>Heredia</option>
 <option>Flores</option>
 <option>Belén</option>
@@ -134,9 +130,6 @@ font-weight:700;
 <option>San Pablo</option>
 <option>Santo Domingo</option>
 <option>San Rafael</option>
-<option>San Isidro</option>
-<option>Sarapiquí</option>
-
 <option>Alajuela</option>
 <option>Poás</option>
 <option>Grecia</option>
@@ -144,47 +137,19 @@ font-weight:700;
 <option>Atenas</option>
 <option>Naranjo</option>
 <option>Palmares</option>
-
-<option>San Mateo</option>
-<option>Orotina</option>
-<option>Zarcero</option>
-<option>San Ramón</option>
-<option>Río Cuarto</option>
-<option>San Carlos</option>
-<option>Guatuso</option>
-<option>Los Chiles</option>
-<option>Upala</option>
-
 <option>Cartago</option>
 <option>La Unión</option>
 <option>Paraíso</option>
 <option>Oreamuno</option>
 
-<option>El Guarco</option>
-<option>Alvarado</option>
-<option>Jiménez</option>
-<option>Turrialba</option>
-
-<option>Liberia</option>
-<option>Bagaces</option>
-<option>Carrillo</option>
-<option>Cañas</option>
-<option>Tilarán</option>
-<option>Abangares</option>
-<option>La Cruz</option>
-<option>Nicoya</option>
-<option>Santa Cruz</option>
-<option>Nandayure</option>
-<option>Hojancha</option>
-
 </select>
 
 <label>Cantidad paquetes</label>
-<input type="number" id="cantidad" value="1" min="1">
+<input type="number" id="cantidad" value="1">
 
 <div class="resultado">
 
-Precio por entrega: ₡ <span id="precio">0</span><br>
+Precio por entrega: ₡ <span id="precio">0</span><br><br>
 
 Total: ₡ <span id="total">0</span>
 
@@ -193,6 +158,38 @@ Total: ₡ <span id="total">0</span>
 <a class="whatsapp" id="whatsappBtn" target="_blank">
 Consultar por WhatsApp
 </a>
+
+<div class="formulario">
+
+<h2>Enviar Paquete</h2>
+
+<form id="formEnvio">
+
+<input placeholder="Número de guía" id="guia" required>
+
+<input placeholder="Cliente" id="cliente" required>
+
+<input placeholder="Lugar de retiro" id="retiro" required>
+
+<input placeholder="Teléfono" id="telefono" required>
+
+<input placeholder="Email" id="email">
+
+<input placeholder="Provincia" id="provincia" required>
+
+<input placeholder="Cantón" id="cantonForm" required>
+
+<input placeholder="Señas" id="senas">
+
+<input placeholder="Ubicación digital (Google Maps)" id="ubicacion">
+
+<input placeholder="Horario de entrega" id="horario">
+
+<button type="submit">Enviar Pedido</button>
+
+</form>
+
+</div>
 
 </div>
 
@@ -213,15 +210,6 @@ const precios={
 "Vázquez de Coronado":4000,
 "Aserrí":4000,
 
-"Mora":"ruta",
-"Acosta":"ruta",
-"Puriscal":"ruta",
-"Turrubares":"ruta",
-"Dota":"ruta",
-"Tarrazú":"ruta",
-"León Cortés Castro":"ruta",
-"Pérez Zeledón":"ruta",
-
 "Heredia":2500,
 "Flores":2500,
 "Belén":2500,
@@ -230,8 +218,6 @@ const precios={
 "San Pablo":2500,
 "Santo Domingo":2500,
 "San Rafael":2500,
-"San Isidro":3000,
-"Sarapiquí":"ruta",
 
 "Alajuela":2500,
 "Poás":3000,
@@ -241,107 +227,65 @@ const precios={
 "Naranjo":5000,
 "Palmares":5000,
 
-"San Mateo":"ruta",
-"Orotina":"ruta",
-"Zarcero":"ruta",
-"San Ramón":"ruta",
-"Río Cuarto":"ruta",
-"San Carlos":"ruta",
-"Guatuso":"ruta",
-"Los Chiles":"ruta",
-"Upala":"ruta",
-
 "Cartago":4500,
 "La Unión":4500,
 "Paraíso":4500,
-"Oreamuno":4500,
-
-"El Guarco":"ruta",
-"Alvarado":"ruta",
-"Jiménez":"ruta",
-"Turrialba":"ruta",
-
-"Liberia":5000,
-"Bagaces":5000,
-"Carrillo":5000,
-"Cañas":7000,
-"Tilarán":7000,
-"Abangares":5000,
-"La Cruz":7000,
-"Nicoya":5000,
-"Santa Cruz":5000,
-"Nandayure":7000,
-"Hojancha":7000
+"Oreamuno":4500
 
 };
-
-function precioProvincia(p,c){
-
-if(p==="Limon"){
-if(c>=31)return 2800;
-if(c>=26)return 3000;
-if(c>=16)return 3500;
-if(c>=10)return 4000;
-}
-
-if(p==="Guanacaste"){
-if(c>=31)return 4200;
-if(c>=26)return 4500;
-if(c>=16)return 5000;
-if(c>=10)return 5500;
-}
-
-if(p==="Puntarenas"){
-if(c>=31)return 3200;
-if(c>=26)return 3500;
-if(c>=16)return 4000;
-if(c>=10)return 4500;
-}
-
-return null;
-}
 
 function calcular(){
 
 let canton=document.getElementById("canton").value;
-let provincia=document.getElementById("provincia").value;
 let cantidad=parseInt(document.getElementById("cantidad").value)||0;
 
-let precio=null;
+if(!canton)return;
 
-if(provincia!==""){
-precio=precioProvincia(provincia,cantidad);
-}
-
-if(precio===null && canton!==""){
-precio=precios[canton];
-}
-
-if(precio==="ruta"){
-
-document.getElementById("precio").innerText="Contacte a Axis MC Logística";
-document.getElementById("total").innerText="-";
-
-document.getElementById("whatsappBtn").href="https://wa.me/50664541075?text=Cotizar envío a "+canton;
-
-return;
-
-}
-
-if(precio===null)return;
+let precio=precios[canton];
 
 document.getElementById("precio").innerText=precio.toLocaleString();
 document.getElementById("total").innerText=(precio*cantidad).toLocaleString();
 
-document.getElementById("whatsappBtn").href="https://wa.me/50664541075?text=Cotizar "+cantidad+" paquetes";
+document.getElementById("whatsappBtn").href="https://wa.me/50664541075?text=Hola%20Axis%20MC%20Logística,%20quiero%20cotizar%20"+cantidad+"%20envíos%20a%20"+canton;
+
+document.getElementById("cantonForm").value=canton;
 
 }
 
-/* auto calcular */
-
 document.getElementById("canton").addEventListener("change",calcular);
 document.getElementById("cantidad").addEventListener("input",calcular);
-document.getElementById("provincia").addEventListener("change",calcular);
+
+const scriptURL="https://script.google.com/macros/s/AKfycbyI66lTZDgHX_bEIyy54airPrUUHc0-CRWwob_fRvJYQg44VaDdamyG_pji1SQe_OI6/exec";
+
+document.getElementById("formEnvio").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const data={
+
+guia:document.getElementById("guia").value,
+cliente:document.getElementById("cliente").value,
+retiro:document.getElementById("retiro").value,
+telefono:document.getElementById("telefono").value,
+email:document.getElementById("email").value,
+provincia:document.getElementById("provincia").value,
+canton:document.getElementById("cantonForm").value,
+senas:document.getElementById("senas").value,
+ubicacion:document.getElementById("ubicacion").value,
+horario:document.getElementById("horario").value
+
+};
+
+fetch(scriptURL,{
+method:"POST",
+body:JSON.stringify(data)
+})
+.then(res=>{
+alert("Pedido enviado correctamente");
+document.getElementById("formEnvio").reset();
+});
+
+});
 
 </script>
 
