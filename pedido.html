@@ -146,12 +146,14 @@ horario:document.getElementById("horario").value
 fetch("https://script.google.com/macros/s/AKfycbyjKYFfsA3yQfUewteWzjkBt6ZS2NBmvEUGKfVRCKb8Q_hWl6di_D4Y0MacNaiBrIWWUw/exec",{
 
 method:"POST",
+mode:"no-cors",
+headers:{
+"Content-Type":"application/json"
+},
 body:JSON.stringify(data)
 
 })
-
-.then(res=>res.json())
-.then(res=>{
+.then(()=>{
 
 alert("Pedido guardado correctamente");
 
@@ -161,7 +163,6 @@ document.querySelectorAll("input").forEach(i=>i.value="");
 .catch(error=>{
 
 alert("Error al guardar pedido");
-
 console.log(error);
 
 });
