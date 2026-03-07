@@ -31,11 +31,6 @@ max-width:600px;
 box-shadow:0 0 40px rgba(0,0,0,.5);
 }
 
-.titulo{
-text-align:center;
-margin-bottom:20px;
-}
-
 .logo{
 display:block;
 text-align:center;
@@ -49,12 +44,17 @@ font-weight:700;
 font-size:18px;
 }
 
+.titulo{
+text-align:center;
+margin-bottom:20px;
+}
+
 label{
 display:block;
 margin-top:15px;
 }
 
-input,select{
+input{
 width:100%;
 padding:12px;
 border-radius:6px;
@@ -107,8 +107,8 @@ background:#1d4ed8;
 <label>Señas</label>
 <input id="senas" placeholder="Ej: 200m norte del parque">
 
-<label>Ubicación Google Maps</label>
-<input id="ubicacion" placeholder="Pegue el link de Google Maps o waze">
+<label>Ubicación Google Maps o Waze (opcional)</label>
+<input id="ubicacion" placeholder="Pegue el link">
 
 <label>Horario de Entrega</label>
 <input id="horario" placeholder="Ej: 2pm a 5pm">
@@ -121,23 +121,36 @@ background:#1d4ed8;
 
 function enviarPedido(){
 
+let cliente=document.getElementById("cliente").value;
+let telefono=document.getElementById("telefono").value;
+let provincia=document.getElementById("provincia").value;
+let canton=document.getElementById("canton").value;
+let senas=document.getElementById("senas").value;
+let ubicacion=document.getElementById("ubicacion").value;
+let horario=document.getElementById("horario").value;
+
+/* VALIDAR CAMPOS */
+
+if(!cliente || !telefono || !provincia || !canton || !senas || !horario){
+
+alert("Por favor complete todos los campos obligatorios");
+return;
+
+}
+
 let data={
 
-cliente:document.getElementById("cliente").value,
-retiro:document.getElementById("retiro").value,
-telefono:document.getElementById("telefono").value,
-email:document.getElementById("email").value,
-
-provincia:document.getElementById("provincia").value,
-canton:document.getElementById("canton").value,
-
-senas:document.getElementById("senas").value,
-ubicacion:document.getElementById("ubicacion").value,
-horario:document.getElementById("horario").value
+cliente:cliente,
+telefono:telefono,
+provincia:provincia,
+canton:canton,
+senas:senas,
+ubicacion:ubicacion,
+horario:horario
 
 };
 
-fetch("https://script.google.com/macros/s/AKfycbw4Ik4nPU57wHCp_XdAL-NuDkGcuWRazi1PhfUsZH27I7WRzB_hdPPQa_Wg4enw36_kLg/exec",{
+fetch("https://script.google.com/macros/s/AKfycbzVWKof1wJSdz2F5I0N0cbdZk0aGZxWJE-XkqidOPb5Glmpdm1648pLt6wcqkP1APzEEw/exec",{
 
 method:"POST",
 body:JSON.stringify(data)
@@ -155,7 +168,6 @@ document.querySelectorAll("input").forEach(i=>i.value="");
 .catch(error=>{
 
 alert("Error al guardar pedido");
-
 console.log(error);
 
 });
