@@ -31,9 +31,22 @@ max-width:600px;
 box-shadow:0 0 40px rgba(0,0,0,.5);
 }
 
-h1{
+.titulo{
 text-align:center;
 margin-bottom:20px;
+}
+
+.logo{
+display:block;
+text-align:center;
+margin-bottom:20px;
+padding:12px;
+background:#111827;
+border-radius:8px;
+color:white;
+text-decoration:none;
+font-weight:700;
+font-size:18px;
 }
 
 label{
@@ -61,6 +74,10 @@ font-weight:600;
 cursor:pointer;
 }
 
+button:hover{
+background:#1d4ed8;
+}
+
 </style>
 
 </head>
@@ -69,34 +86,38 @@ cursor:pointer;
 
 <div class="container">
 
-<h1>Ingreso de Pedido</h1>
+<a href="cotizador.html" class="logo">
+← Axis MC Logística
+</a>
+
+<h1 class="titulo">Ingreso de Pedido</h1>
 
 <label>Cliente</label>
-<input id="cliente">
+<input id="cliente" placeholder="Nombre del cliente">
 
 <label>Lugar de Retiro</label>
-<input id="retiro">
+<input id="retiro" placeholder="Ej: Bodega Central">
 
 <label>Teléfono</label>
-<input id="telefono">
+<input id="telefono" placeholder="8888-8888">
 
 <label>Email</label>
-<input id="email">
+<input id="email" placeholder="correo@email.com">
 
 <label>Provincia</label>
-<input id="provincia">
+<input id="provincia" placeholder="Ej: San José">
 
 <label>Cantón</label>
-<input id="canton">
+<input id="canton" placeholder="Ej: Escazú">
 
 <label>Señas</label>
-<input id="senas">
+<input id="senas" placeholder="Ej: 200m norte del parque">
 
 <label>Ubicación Google Maps</label>
-<input id="ubicacion">
+<input id="ubicacion" placeholder="Pegue el link de Google Maps">
 
 <label>Horario de Entrega</label>
-<input id="horario">
+<input id="horario" placeholder="Ej: 2pm a 5pm">
 
 <button onclick="enviarPedido()">Guardar Pedido</button>
 
@@ -135,6 +156,13 @@ body:JSON.stringify(data)
 alert("Pedido guardado correctamente");
 
 document.querySelectorAll("input").forEach(i=>i.value="");
+
+})
+.catch(error=>{
+
+alert("Error al guardar pedido");
+
+console.log(error);
 
 });
 
