@@ -194,11 +194,11 @@ Crear Pedido
 
 const cantones={
 
-"San José":2500,
-"Montes de Oca":2500,
-"Tibás":2500,
-"Santa Ana":2500,
-"Curridabat":3000,
+"San José":3000,
+"Montes de Oca":3000,
+"Tibás":3000,
+"Santa Ana":300,
+"Curridabat":3500,
 "Goicoechea":3000,
 "Moravia":3000,
 "Escazú":3000,
@@ -219,18 +219,18 @@ const cantones={
 "Heredia":2500,
 "Flores":2500,
 "Belén":2500,
-"Santa Bárbara":2500,
-"Barva":2500,
-"San Pablo":2500,
-"Santo Domingo":2500,
-"San Rafael":2500,
+"Santa Bárbara":3000,
+"Barva":3000,
+"San Pablo":3000,
+"Santo Domingo":3000,
+"San Rafael":3000,
 "San Isidro":3000,
 "Sarapiquí":"ruta",
 
-"Alajuela":2500,
-"Poás":3000,
-"Grecia":4000,
-"Sarchí":4000,
+"Alajuela":3000,
+"Poás":3500,
+"Grecia":5000,
+"Sarchí":4500,
 "Atenas":5000,
 "Naranjo":5000,
 "Palmares":5000,
@@ -246,9 +246,9 @@ const cantones={
 "Upala":"ruta",
 
 "Cartago":4500,
-"La Unión":4500,
-"Paraíso":4500,
-"Oreamuno":4500,
+"La Unión":5000,
+"Paraíso":5000,
+"Oreamuno":5000,
 
 "El Guarco":"ruta",
 "Alvarado":"ruta",
@@ -275,22 +275,22 @@ const cantones={
 function precioProvincia(provincia,cantidad){
 
 if(provincia==="Limon"){
-if(cantidad>=31)return 2800;
-if(cantidad>=26)return 3000;
-if(cantidad>=16)return 3500;
+if(cantidad>=31)return 3200;
+if(cantidad>=26)return 3400;
+if(cantidad>=16)return 3700;
 if(cantidad>=10)return 4000;
 }
 
 if(provincia==="Guanacaste"){
-if(cantidad>=31)return 4200;
-if(cantidad>=26)return 4500;
-if(cantidad>=16)return 5000;
-if(cantidad>=10)return 5500;
+if(cantidad>=31)return 5000;
+if(cantidad>=26)return 5200;
+if(cantidad>=16)return 5500;
+if(cantidad>=10)return 5800;
 }
 
 if(provincia==="Puntarenas"){
-if(cantidad>=31)return 3200;
-if(cantidad>=26)return 3500;
+if(cantidad>=31)return 3500;
+if(cantidad>=26)return 3800;
 if(cantidad>=16)return 4000;
 if(cantidad>=10)return 4500;
 }
