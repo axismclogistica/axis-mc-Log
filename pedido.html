@@ -78,6 +78,43 @@ button:hover{
 background:#1d4ed8;
 }
 
+/* POPUP */
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.7);
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+.popup-box{
+background:#1f2937;
+padding:30px;
+border-radius:12px;
+max-width:400px;
+width:90%;
+}
+
+.popup pre{
+white-space:pre-wrap;
+font-family:monospace;
+}
+
+.popup-buttons{
+margin-top:20px;
+display:flex;
+gap:10px;
+}
+
+.popup-buttons button{
+flex:1;
+}
+
 </style>
 
 </head>
@@ -123,11 +160,36 @@ background:#1d4ed8;
 
 </div>
 
+
+<!-- POPUP -->
+
+<div class="popup" id="popup">
+
+<div class="popup-box">
+
+<h3>Pedido Guardado</h3>
+
+<pre id="popupTexto"></pre>
+
+<div class="popup-buttons">
+
+<button onclick="copiarInfo()">Copiar</button>
+
+<button onclick="cerrarPopup()">Aceptar</button>
+
+</div>
+
+</div>
+
+</div>
+
+
 <script>
 
 async function enviarPedido(){
 
-let btn = document.getElementById("btnEnviar");
+let btn=document.getElementById("btnEnviar");
+
 btn.innerText="Guardando...";
 btn.disabled=true;
 
@@ -137,10 +199,8 @@ cliente:document.getElementById("cliente").value,
 retiro:document.getElementById("retiro").value,
 telefono:document.getElementById("telefono").value,
 email:document.getElementById("email").value,
-
 provincia:document.getElementById("provincia").value,
 canton:document.getElementById("canton").value,
-
 senas:document.getElementById("senas").value,
 ubicacion:document.getElementById("ubicacion").value,
 horario:document.getElementById("horario").value
@@ -149,28 +209,40 @@ horario:document.getElementById("horario").value
 
 try{
 
-let res = await
-fetch("https://script.google.com/macros/s/AKfycbzTOpGTwI0yk0w_RhNdwFhdg0uL3yw32J_c53yuhm6U6hLSlNnuaq2LRmLkUipSbCXn/exec",{
-
+await fetch(
+"https://script.google.com/macros/s/AKfycbzTOpGTwI0yk0w_RhNdwFhdg0uL3yw32J_c53yuhm6U6hLSlNnuaq2LRmLkUipSbCXn/exec",
+{
 method:"POST",
-mode:"cors",
-headers:{
-"Content-Type":"application/json"
-},
+mode:"no-cors",
 body:JSON.stringify(data)
+});
 
-})
+let info=
 
-let json = await res.json();
+`Cliente: ${data.cliente}
 
-alert("Pedido guardado\nGuía: "+json.guia);
+Teléfono: ${data.telefono}
 
-window.open(json.pdf,"_blank");
+Provincia: ${data.provincia}
+Cantón: ${data.canton}
 
-document.querySelectorAll("input").forEach(i=>i.value="");
+Señas:
+${data.senas}
+
+Ubicación:
+${data.ubicacion}
+
+Horario:
+${data.horario}`;
+
+document.getElementById("popupTexto").innerText=info;
+
+document.getElementById("popup").style.display="flex";
 
 btn.innerText="Guardar Pedido";
 btn.disabled=false;
+
+document.querySelectorAll("input").forEach(i=>i.value="");
 
 }catch(err){
 
@@ -179,9 +251,23 @@ alert("Error al guardar pedido");
 btn.innerText="Guardar Pedido";
 btn.disabled=false;
 
-console.log(err);
+}
 
 }
+
+function cerrarPopup(){
+
+document.getElementById("popup").style.display="none";
+
+}
+
+function copiarInfo(){
+
+let texto=document.getElementById("popupTexto").innerText;
+
+navigator.clipboard.writeText(texto);
+
+alert("Información copiada");
 
 }
 
