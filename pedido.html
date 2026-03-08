@@ -149,15 +149,17 @@ horario:document.getElementById("horario").value
 
 try{
 
-let res = await fetch("https://script.google.com/macros/s/AKfycbyaUtHze1zjFtOQDKz1sCkH1JyWS0_l8szVVUtxRhCMtpoPS_9-f71BleMHVLuUj_-fXg/exec",{
+let res = await
+fetch("https://script.google.com/macros/s/AKfycbyM_-ifsKaMgMa95LwRPoNwD_cXZ6HeKQI_CEL3JyavDZFgDUY1grdHbC7CQvzkY-R9eQ/exec",{
 
 method:"POST",
+mode:"cors",
 headers:{
 "Content-Type":"application/json"
 },
 body:JSON.stringify(data)
 
-});
+})
 
 let json = await res.json();
 
