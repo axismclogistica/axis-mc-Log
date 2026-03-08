@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
@@ -98,11 +99,25 @@ padding:30px;
 border-radius:12px;
 max-width:400px;
 width:90%;
+text-align:center;
+}
+
+.popup-logo{
+width:120px;
+margin-bottom:10px;
+}
+
+.guia{
+font-size:24px;
+font-weight:700;
+margin-bottom:10px;
+color:#60a5fa;
 }
 
 .popup pre{
 white-space:pre-wrap;
 font-family:monospace;
+text-align:left;
 }
 
 .popup-buttons{
@@ -130,36 +145,37 @@ flex:1;
 <h1 class="titulo">Ingreso de Pedido</h1>
 
 <label>Cliente</label>
-<input id="cliente" placeholder="Nombre del cliente">
+<input id="cliente">
 
 <label>Pedido de</label>
-<input id="retiro" placeholder="Ej: Bodega Central">
+<input id="retiro">
 
 <label>Teléfono</label>
-<input id="telefono" placeholder="8888-8888">
+<input id="telefono">
 
 <label>Email</label>
-<input id="email" placeholder="correo@email.com">
+<input id="email">
 
 <label>Provincia</label>
-<input id="provincia" placeholder="Ej: San José">
+<input id="provincia">
 
 <label>Cantón</label>
-<input id="canton" placeholder="Ej: Escazú">
+<input id="canton">
 
 <label>Señas</label>
-<input id="senas" placeholder="Ej: 200m norte del parque">
+<input id="senas">
 
 <label>Ubicación Google Maps</label>
-<input id="ubicacion" placeholder="Pegue el link de Google Maps o Waze">
+<input id="ubicacion">
 
 <label>Horario de Entrega</label>
-<input id="horario" placeholder="Ej: 2pm a 5pm">
+<input id="horario">
 
-<button id="btnEnviar" onclick="enviarPedido()">Guardar Pedido</button>
+<button id="btnEnviar" onclick="enviarPedido()">
+Guardar Pedido
+</button>
 
 </div>
-
 
 <!-- POPUP -->
 
@@ -167,7 +183,11 @@ flex:1;
 
 <div class="popup-box">
 
-<h3>Pedido Guardado</h3>
+<img src="https://axismclogistica.github.io/logo.png" class="popup-logo">
+
+<h3>Pedido Registrado</h3>
+
+<div class="guia" id="numeroGuia"></div>
 
 <pre id="popupTexto"></pre>
 
@@ -182,7 +202,6 @@ flex:1;
 </div>
 
 </div>
-
 
 <script>
 
@@ -209,13 +228,20 @@ horario:document.getElementById("horario").value
 
 try{
 
-await fetch(
-"https://script.google.com/macros/s/AKfycbzTOpGTwI0yk0w_RhNdwFhdg0uL3yw32J_c53yuhm6U6hLSlNnuaq2LRmLkUipSbCXn/exec",
+let res=await fetch(
+"https://script.google.com/macros/s/AKfycbwJKJHPXMAgTLPp8U-Fch9vd-ysd0eugz7k7p9daYCU1eXqzAYfCV5OO7n07WXajQkDtA/exec",
 {
 method:"POST",
-mode:"no-cors",
+headers:{
+"Content-Type":"application/json"
+},
 body:JSON.stringify(data)
 });
+
+let json=await res.json();
+
+document.getElementById("numeroGuia").innerText=
+"Guía: "+json.guia;
 
 let info=
 
