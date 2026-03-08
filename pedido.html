@@ -54,7 +54,7 @@ display:block;
 margin-top:15px;
 }
 
-input,select{
+input{
 width:100%;
 padding:12px;
 border-radius:6px;
@@ -114,18 +114,22 @@ background:#1d4ed8;
 <input id="senas" placeholder="Ej: 200m norte del parque">
 
 <label>Ubicación Google Maps</label>
-<input id="ubicacion" placeholder="Pegue el link de Google Maps o waze">
+<input id="ubicacion" placeholder="Pegue el link de Google Maps o Waze">
 
 <label>Horario de Entrega</label>
 <input id="horario" placeholder="Ej: 2pm a 5pm">
 
-<button onclick="enviarPedido()">Guardar Pedido</button>
+<button id="btnEnviar" onclick="enviarPedido()">Guardar Pedido</button>
 
 </div>
 
 <script>
 
-function enviarPedido(){
+async function enviarPedido(){
+
+let btn = document.getElementById("btnEnviar");
+btn.innerText="Guardando...";
+btn.disabled=true;
 
 let data={
 
@@ -143,33 +147,39 @@ horario:document.getElementById("horario").value
 
 };
 
-fetch("https://script.google.com/macros/s/AKfycbyHsAjktyy6j9X81MWAtotx1kUM-04RacIAiudiCa9aUxl1tKX7FF-3nrjM8oKDuPkFeg/exec",{
+try{
+
+let res = await fetch("https://script.google.com/macros/s/AKfycbyHsAjktyy6j9X81MWAtotx1kUM-04RacIAiudiCa9aUxl1tKX7FF-3nrjM8oKDuPkFeg/exec",{
 
 method:"POST",
-
 headers:{
 "Content-Type":"application/json"
 },
-
 body:JSON.stringify(data)
 
-})
-.then(res=>res.json())
-.then(res=>{
+});
 
-alert("Pedido guardado\nGuía: "+res.guia);
+let json = await res.json();
 
-window.open(res.pdf);
+alert("Pedido guardado\nGuía: "+json.guia);
+
+window.open(json.pdf,"_blank");
 
 document.querySelectorAll("input").forEach(i=>i.value="");
 
-})
-.catch(error=>{
+btn.innerText="Guardar Pedido";
+btn.disabled=false;
+
+}catch(err){
 
 alert("Error al guardar pedido");
-console.log(error);
 
-});
+btn.innerText="Guardar Pedido";
+btn.disabled=false;
+
+console.log(err);
+
+}
 
 }
 
