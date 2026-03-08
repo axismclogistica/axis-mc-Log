@@ -143,19 +143,23 @@ horario:document.getElementById("horario").value
 
 };
 
-fetch("https://script.google.com/macros/s/AKfycbyOr4cqLWPBwPF3I0QYmDOifbCSij-mB_MRiVySf8lLHB1VyLYS1hXlwyzCCYa5V0xj7w/exec",{
+fetch("https://script.google.com/macros/s/AKfycbyHsAjktyy6j9X81MWAtotx1kUM-04RacIAiudiCa9aUxl1tKX7FF-3nrjM8oKDuPkFeg/exec",{
 
 method:"POST",
-mode:"no-cors",
+
 headers:{
 "Content-Type":"application/json"
 },
+
 body:JSON.stringify(data)
 
 })
-.then(()=>{
+.then(res=>res.json())
+.then(res=>{
 
-alert("Pedido guardado correctamente");
+alert("Pedido guardado\nGuía: "+res.guia);
+
+window.open(res.pdf);
 
 document.querySelectorAll("input").forEach(i=>i.value="");
 
