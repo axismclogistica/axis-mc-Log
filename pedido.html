@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
 
 <meta charset="UTF-8">
@@ -79,8 +78,6 @@ button:hover{
 background:#1d4ed8;
 }
 
-/* POPUP */
-
 .popup{
 position:fixed;
 top:0;
@@ -97,21 +94,16 @@ align-items:center;
 background:#1f2937;
 padding:30px;
 border-radius:12px;
-max-width:400px;
+max-width:420px;
 width:90%;
 text-align:center;
-}
-
-.popup-logo{
-width:120px;
-margin-bottom:10px;
 }
 
 .guia{
 font-size:24px;
 font-weight:700;
-margin-bottom:10px;
 color:#60a5fa;
+margin-bottom:15px;
 }
 
 .popup pre{
@@ -171,21 +163,15 @@ flex:1;
 <label>Horario de Entrega</label>
 <input id="horario">
 
-<button id="btnEnviar" onclick="enviarPedido()">
-Guardar Pedido
-</button>
+<button id="btnEnviar" onclick="enviarPedido()">Guardar Pedido</button>
 
 </div>
-
-<!-- POPUP -->
 
 <div class="popup" id="popup">
 
 <div class="popup-box">
 
-<img src="https://axismclogistica.github.io/logo.png" class="popup-logo">
-
-<h3>Pedido Registrado</h3>
+<h3>Pedido Guardado</h3>
 
 <div class="guia" id="numeroGuia"></div>
 
@@ -228,8 +214,8 @@ horario:document.getElementById("horario").value
 
 try{
 
-let res=await fetch(
-"https://script.google.com/macros/s/AKfycbwJKJHPXMAgTLPp8U-Fch9vd-ysd0eugz7k7p9daYCU1eXqzAYfCV5OO7n07WXajQkDtA/exec",
+let res = await fetch(
+"https://script.google.com/macros/s/AKfycbySCQfez1Dr6fZwpM0eEJ3m7f7RstCI3JgHGIA6xlub8wMuSP8MtSzE1k3e5nSKF8FGCQ/exec",
 {
 method:"POST",
 headers:{
@@ -238,12 +224,11 @@ headers:{
 body:JSON.stringify(data)
 });
 
-let json=await res.json();
+let json = await res.json();
 
-document.getElementById("numeroGuia").innerText=
-"Guía: "+json.guia;
+document.getElementById("numeroGuia").innerText="Guía: "+json.guia;
 
-let info=
+let info =
 
 `Cliente: ${data.cliente}
 
@@ -289,7 +274,9 @@ document.getElementById("popup").style.display="none";
 
 function copiarInfo(){
 
-let texto=document.getElementById("popupTexto").innerText;
+let texto=
+document.getElementById("numeroGuia").innerText+"\n\n"+
+document.getElementById("popupTexto").innerText;
 
 navigator.clipboard.writeText(texto);
 
