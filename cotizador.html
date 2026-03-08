@@ -373,14 +373,24 @@ async function rastrear(){
 
 let guia=document.getElementById("guiaBuscar").value;
 
-let res=await fetch("https://script.google.com/macros/s/AKfycbxQ3LU5Cp8e6lYWvHW2r9chTBjLIv3CLWFTI9OrTIu5E4LVQgSvwUmOCj40v_tdBzVkpQ/exec"+guia);
+if(!guia){
+
+document.getElementById("resultadoRastreo").innerHTML="Ingrese un número de guía";
+return;
+
+}
+
+try{
+
+let res=await fetch(
+"https://script.google.com/macros/s/AKfycbyq37IakKTz-OwBV_91omUFEYs38vdZVOSX6Wt9a9aDIRYxoOye5arrDH79lbvFVePiEw/exec?guia="+encodeURIComponent(guia)
+);
 
 let data=await res.json();
 
 if(data.error){
 
 document.getElementById("resultadoRastreo").innerHTML="Guía no encontrada";
-
 return;
 
 }
@@ -393,6 +403,14 @@ Provincia: ${data.provincia}<br>
 Cantón: ${data.canton}<br>
 Estado: <b>${data.estado}</b>
 `;
+
+}
+
+catch(err){
+
+document.getElementById("resultadoRastreo").innerHTML="Error consultando la guía";
+
+}
 
 }
 
