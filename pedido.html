@@ -242,10 +242,24 @@ body:JSON.stringify(data)
 
 document.getElementById("numeroGuia").innerText="Guía: "+guia;
 
-let info=
+// Fecha en formato dd/mm/yyyy hh:mm
+let now = new Date();
+let fecha = ("0"+now.getDate()).slice(-2)+"/"+
+            ("0"+(now.getMonth()+1)).slice(-2)+"/"+
+            now.getFullYear()+" "+
+            ("0"+now.getHours()).slice(-2)+":"+
+            ("0"+now.getMinutes()).slice(-2);
 
-`Cliente: ${data.cliente}
+// Contenido del popup con info fija primero
+let info =
+`Axis MC Logística
+Heredia, Costa Rica
+Teléfonos: 64541075 / 62532958
+Fecha: ${fecha}
 
+Pedido de: ${data.retiro}
+
+Cliente: ${data.cliente}
 Teléfono: ${data.telefono}
 
 Provincia: ${data.provincia}
