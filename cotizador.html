@@ -64,6 +64,12 @@ text-decoration:none;
 font-weight:600;
 }
 
+.rastreo{
+margin-top:40px;
+padding-top:20px;
+border-top:1px solid #444;
+}
+
 </style>
 </head>
 
@@ -173,6 +179,7 @@ Total: ₡ <span id="total">0</span>
 <a class="whatsapp" id="whatsappBtn" target="_blank">
 Consultar por WhatsApp
 </a>
+
 <a href="pedido.html" style="
 display:block;
 margin-top:20px;
@@ -186,26 +193,49 @@ font-weight:600;
 ">
 Crear Pedido
 </a>
+
+<div class="rastreo">
+
+<h2>Rastrear Envío</h2>
+
+<input id="guiaBuscar" placeholder="Ingrese número de guía">
+
+<button onclick="rastrear()" style="
+margin-top:10px;
+padding:12px;
+background:#22c55e;
+border:none;
+border-radius:6px;
+color:white;
+width:100%;
+font-weight:600;
+">
+Buscar Guía
+</button>
+
+<div id="resultadoRastreo" style="margin-top:15px;"></div>
+
+</div>
+
 </div>
 
 <script>
 
-/* PRECIOS CANTONES */
+/* TODO TU SCRIPT ORIGINAL */
 
 const cantones={
-
 "San José":3000,
 "Montes de Oca":3000,
 "Tibás":3000,
-"Santa Ana":300,
+"Santa Ana":3000,
 "Curridabat":3500,
 "Goicoechea":3000,
 "Moravia":3000,
 "Escazú":3000,
 "Alajuelita":3000,
 "Desamparados":3000,
-"Vázquez de Coronado":4000,
-"Aserrí":4000,
+"Vázquez de Coronado":3500,
+"Aserrí":3500,
 
 "Mora":"ruta",
 "Acosta":"ruta",
@@ -229,7 +259,7 @@ const cantones={
 
 "Alajuela":3000,
 "Poás":3500,
-"Grecia":5000,
+"Grecia":4500,
 "Sarchí":4500,
 "Atenas":5000,
 "Naranjo":5000,
@@ -245,10 +275,10 @@ const cantones={
 "Los Chiles":"ruta",
 "Upala":"ruta",
 
-"Cartago":4500,
-"La Unión":5000,
-"Paraíso":5000,
-"Oreamuno":5000,
+"Cartago":4000,
+"La Unión":4500,
+"Paraíso":4500,
+"Oreamuno":4500,
 
 "El Guarco":"ruta",
 "Alvarado":"ruta",
@@ -266,11 +296,7 @@ const cantones={
 "Santa Cruz":5000,
 "Nandayure":7000,
 "Hojancha":7000
-
 };
-
-
-/* PRECIOS PROVINCIAS */
 
 function precioProvincia(provincia,cantidad){
 
@@ -296,9 +322,7 @@ if(cantidad>=10)return 4500;
 }
 
 return null;
-
 }
-
 
 function calcular(){
 
@@ -307,9 +331,6 @@ let provincia=document.getElementById("provincia").value;
 let cantidad=parseInt(document.getElementById("cantidad").value)||1;
 
 let precio=null;
-
-
-/* SI HAY CANTON */
 
 if(canton){
 
@@ -328,13 +349,8 @@ return;
 
 }
 
-
-/* SI USA PROVINCIA */
-
 if(!precio && provincia){
-
 precio=precioProvincia(provincia,cantidad);
-
 }
 
 if(!precio)return;
@@ -349,6 +365,36 @@ document.getElementById("whatsappBtn").href="https://wa.me/50664541075?text=Hola
 document.getElementById("canton").addEventListener("change",calcular);
 document.getElementById("provincia").addEventListener("change",calcular);
 document.getElementById("cantidad").addEventListener("input",calcular);
+
+
+/* FUNCION NUEVA RASTREO */
+
+async function rastrear(){
+
+let guia=document.getElementById("guiaBuscar").value;
+
+let res=await fetch("https://script.google.com/macros/s/AKfycbxQ3LU5Cp8e6lYWvHW2r9chTBjLIv3CLWFTI9OrTIu5E4LVQgSvwUmOCj40v_tdBzVkpQ/exec"+guia);
+
+let data=await res.json();
+
+if(data.error){
+
+document.getElementById("resultadoRastreo").innerHTML="Guía no encontrada";
+
+return;
+
+}
+
+document.getElementById("resultadoRastreo").innerHTML=
+`
+Guía: <b>${data.guia}</b><br>
+Cliente: ${data.cliente}<br>
+Provincia: ${data.provincia}<br>
+Cantón: ${data.canton}<br>
+Estado: <b>${data.estado}</b>
+`;
+
+}
 
 </script>
 
