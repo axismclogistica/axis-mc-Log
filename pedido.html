@@ -78,8 +78,6 @@ button:hover{
 background:#1d4ed8;
 }
 
-/* POPUP */
-
 .popup{
 position:fixed;
 top:0;
@@ -115,6 +113,13 @@ gap:10px;
 flex:1;
 }
 
+.guia{
+font-size:22px;
+font-weight:700;
+color:#60a5fa;
+margin-bottom:15px;
+}
+
 </style>
 
 </head>
@@ -130,44 +135,43 @@ flex:1;
 <h1 class="titulo">Ingreso de Pedido</h1>
 
 <label>Cliente</label>
-<input id="cliente" placeholder="Nombre del cliente">
+<input id="cliente">
 
 <label>Pedido de</label>
-<input id="retiro" placeholder="Ej: Bodega Central">
+<input id="retiro">
 
 <label>Teléfono</label>
-<input id="telefono" placeholder="8888-8888">
+<input id="telefono">
 
 <label>Email</label>
-<input id="email" placeholder="correo@email.com">
+<input id="email">
 
 <label>Provincia</label>
-<input id="provincia" placeholder="Ej: San José">
+<input id="provincia">
 
 <label>Cantón</label>
-<input id="canton" placeholder="Ej: Escazú">
+<input id="canton">
 
 <label>Señas</label>
-<input id="senas" placeholder="Ej: 200m norte del parque">
+<input id="senas">
 
 <label>Ubicación Google Maps</label>
-<input id="ubicacion" placeholder="Pegue el link de Google Maps o Waze">
+<input id="ubicacion">
 
 <label>Horario de Entrega</label>
-<input id="horario" placeholder="Ej: 2pm a 5pm">
+<input id="horario">
 
 <button id="btnEnviar" onclick="enviarPedido()">Guardar Pedido</button>
 
 </div>
-
-
-<!-- POPUP -->
 
 <div class="popup" id="popup">
 
 <div class="popup-box">
 
 <h3>Pedido Guardado</h3>
+
+<div class="guia" id="numeroGuia"></div>
 
 <pre id="popupTexto"></pre>
 
@@ -183,8 +187,24 @@ flex:1;
 
 </div>
 
-
 <script>
+
+function generarGuia(){
+
+let now = new Date();
+
+let guia =
+"AX-" +
+now.getFullYear().toString().slice(2) +
+("0"+(now.getMonth()+1)).slice(-2) +
+("0"+now.getDate()).slice(-2) +
+("0"+now.getHours()).slice(-2) +
+("0"+now.getMinutes()).slice(-2) +
+("0"+now.getSeconds()).slice(-2);
+
+return guia;
+
+}
 
 async function enviarPedido(){
 
@@ -193,8 +213,11 @@ let btn=document.getElementById("btnEnviar");
 btn.innerText="Guardando...";
 btn.disabled=true;
 
+let guia = generarGuia();
+
 let data={
 
+guia:guia,
 cliente:document.getElementById("cliente").value,
 retiro:document.getElementById("retiro").value,
 telefono:document.getElementById("telefono").value,
@@ -210,12 +233,14 @@ horario:document.getElementById("horario").value
 try{
 
 await fetch(
-"https://script.google.com/macros/s/AKfycbyUDz9XknDoqhzpmRPqNqVktd-E9uAUNfGHT-pkSknUu_NB5R_bkTse1N5AkPgcdT5-YQ/exec",
+"https://script.google.com/macros/s/AKfycbzx7C-MRtYt1cUgp4MWpFCqI2CqOIalaVIFpmvt2anNia1S9tWp-yFt5Le2XapTdTe_CA/exec",
 {
 method:"POST",
 mode:"no-cors",
 body:JSON.stringify(data)
 });
+
+document.getElementById("numeroGuia").innerText="Guía: "+guia;
 
 let info=
 
@@ -263,7 +288,9 @@ document.getElementById("popup").style.display="none";
 
 function copiarInfo(){
 
-let texto=document.getElementById("popupTexto").innerText;
+let texto=
+document.getElementById("numeroGuia").innerText+"\n\n"+
+document.getElementById("popupTexto").innerText;
 
 navigator.clipboard.writeText(texto);
 
