@@ -5,38 +5,107 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ingreso de Pedido | Axis MC Logística</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
-body{ font-family:Montserrat; background:#0c0f14; color:white; display:flex; justify-content:center; align-items:center; min-height:100vh; padding:20px; }
-.container{ background:#1f2937; padding:40px; border-radius:15px; width:100%; max-width:600px; box-shadow:0 0 40px rgba(0,0,0,.5); }
-.titulo{ text-align:center; margin-bottom:20px; }
-.logo{ display:block; text-align:center; margin-bottom:20px; padding:12px; background:#111827; border-radius:8px; color:white; text-decoration:none; font-weight:700; font-size:18px; }
-label{ display:block; margin-top:15px; }
-input{ width:100%; padding:12px; border-radius:6px; border:none; margin-top:5px; }
-button{ margin-top:25px; padding:14px; width:100%; border:none; border-radius:8px; background:#2563eb; color:white; font-weight:600; cursor:pointer; }
-button:hover{ background:#1d4ed8; }
-.popup{ position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.7); display:none; justify-content:center; align-items:center; }
-.popup-box{ background:#1f2937; padding:30px; border-radius:12px; max-width:400px; width:90%; }
-.popup pre{ white-space:pre-wrap; font-family:monospace; }
-.popup-buttons{ margin-top:20px; display:flex; gap:10px; }
-.popup-buttons button{ flex:1; }
-.guia{ font-size:22px; font-weight:700; color:#60a5fa; margin-bottom:15px; }
+body{
+  font-family: Montserrat;
+  background:#0c0f14;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:20px;
+}
+.container{
+  background:#1f2937;
+  padding:40px;
+  border-radius:15px;
+  width:100%;
+  max-width:600px;
+  box-shadow:0 0 40px rgba(0,0,0,.5);
+}
+.titulo{text-align:center;margin-bottom:20px;}
+.logo{
+  display:block;
+  text-align:center;
+  margin-bottom:20px;
+  padding:12px;
+  background:#111827;
+  border-radius:8px;
+  color:white;
+  text-decoration:none;
+  font-weight:700;
+  font-size:18px;
+}
+label{display:block;margin-top:15px;}
+input{
+  width:100%;
+  padding:12px;
+  border-radius:6px;
+  border:none;
+  margin-top:5px;
+}
+button{
+  margin-top:25px;
+  padding:14px;
+  width:100%;
+  border:none;
+  border-radius:8px;
+  background:#2563eb;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+button:hover{background:#1d4ed8;}
+.popup{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.7);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+.popup-box{
+  background:#1f2937;
+  padding:30px;
+  border-radius:12px;
+  max-width:400px;
+  width:90%;
+}
+.popup pre{white-space:pre-wrap;font-family:monospace;}
+.popup-buttons{margin-top:20px;display:flex;gap:10px;}
+.popup-buttons button{flex:1;}
+.guia{font-size:22px;font-weight:700;color:#60a5fa;margin-bottom:15px;}
 </style>
 </head>
-<body>
 
+<body>
 <div class="container">
-<a href="cotizador.html" class="logo"> ← Axis MC Logística </a>
+<a href="cotizador.html" class="logo">← Axis MC Logística</a>
 <h1 class="titulo">Ingreso de Pedido</h1>
 
-<label>Cliente</label> <input id="cliente" placeholder="Ej: Carlos Ramírez">
-<label>Pedido de</label> <input id="retiro" placeholder="Ej: Tienda Nike Multiplaza">
-<label>Teléfono</label> <input id="telefono" placeholder="Ej: 8888-9999">
-<label>Email</label> <input id="email" placeholder="Ej: cliente@email.com">
-<label>Provincia</label> <input id="provincia" placeholder="Ej: San José">
-<label>Cantón</label> <input id="canton" placeholder="Ej: Escazú">
-<label>Señas</label> <input id="senas" placeholder="Ej: Casa blanca con portón negro frente a la pulpería">
-<label>Ubicación Google Maps</label> <input id="ubicacion" placeholder="Pegue aquí el link de Google Mapso waze">
-<label>Horario de Entrega</label> <input id="horario" placeholder="Ej: 2pm a 5pm">
+<label>Cliente</label>
+<input id="cliente" placeholder="Ej: Carlos Ramírez">
+<label>Pedido de</label>
+<input id="retiro" placeholder="Ej: Tienda Nike Multiplaza">
+<label>Teléfono</label>
+<input id="telefono" placeholder="Ej: 8888-9999">
+<label>Email</label>
+<input id="email" placeholder="Ej: cliente@email.com">
+<label>Provincia</label>
+<input id="provincia" placeholder="Ej: San José">
+<label>Cantón</label>
+<input id="canton" placeholder="Ej: Escazú">
+<label>Señas</label>
+<input id="senas" placeholder="Ej: Casa blanca con portón negro frente a la pulpería">
+<label>Ubicación Google Maps</label>
+<input id="ubicacion" placeholder="Pegue aquí el link de Google Maps o Waze">
+<label>Horario de Entrega</label>
+<input id="horario" placeholder="Ej: 2pm a 5pm">
 
 <button id="btnEnviar" onclick="enviarPedido()">Guardar Pedido</button>
 </div>
@@ -56,94 +125,84 @@ button:hover{ background:#1d4ed8; }
 <script>
 function generarGuia(){
   let now = new Date();
-  let guia = "AX-" + now.getFullYear().toString().slice(2) +
-             ("0"+(now.getMonth()+1)).slice(-2) +
-             ("0"+now.getDate()).slice(-2) +
-             ("0"+now.getHours()).slice(-2) +
-             ("0"+now.getMinutes()).slice(-2) +
-             ("0"+now.getSeconds()).slice(-2);
-  return guia;
+  return "AX-" +
+    now.getFullYear().toString().slice(2) +
+    ("0"+(now.getMonth()+1)).slice(-2) +
+    ("0"+now.getDate()).slice(-2) +
+    ("0"+now.getHours()).slice(-2) +
+    ("0"+now.getMinutes()).slice(-2) +
+    ("0"+now.getSeconds()).slice(-2);
 }
 
-async function enviarPedido(){
-  let btn=document.getElementById("btnEnviar");
-  btn.innerText="Guardando...";
-  btn.disabled=true;
+function enviarPedido(){
+  let btn = document.getElementById("btnEnviar");
+  btn.innerText = "Guardando...";
+  btn.disabled = true;
 
   let guia = generarGuia();
-
-  let data={
-    guia:guia,
-    cliente:document.getElementById("cliente").value,
-    retiro:document.getElementById("retiro").value,
-    telefono:document.getElementById("telefono").value,
-    email:document.getElementById("email").value,
-    provincia:document.getElementById("provincia").value,
-    canton:document.getElementById("canton").value,
-    senas:document.getElementById("senas").value,
-    ubicacion:document.getElementById("ubicacion").value,
-    horario:document.getElementById("horario").value
+  let data = {
+    guia: guia,
+    cliente: document.getElementById("cliente").value,
+    retiro: document.getElementById("retiro").value,
+    telefono: document.getElementById("telefono").value,
+    email: document.getElementById("email").value,
+    provincia: document.getElementById("provincia").value,
+    canton: document.getElementById("canton").value,
+    senas: document.getElementById("senas").value,
+    ubicacion: document.getElementById("ubicacion").value,
+    horario: document.getElementById("horario").value
   };
 
-  try{
-    await fetch(
-      "https://script.google.com/macros/s/AKfycbxRkfS1XZJL2yHeck98yd-ot9a1OzdiAQDa6Omw7mwjzcO_XUDPJxUWiWnH0-RrnKsp7A/exec",
-      {
-        method:"POST",
-        headers: { "Content-Type": "application/json" }, // <- Cambio clave
-        body:JSON.stringify(data)
-      }
-    );
+  fetch("https://script.google.com/macros/s/AKfycbwl8OFJdg5PnxKgIDlf2yG9bCksNldZiehzu27aD4T7_w8tiFxrlrK1jg7vjdLopEtb5g/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(json => {
+    console.log(json); // Verifica que status: ok llegue
+    document.getElementById("numeroGuia").innerText = "Guía: " + guia;
 
-    document.getElementById("numeroGuia").innerText="Guía: "+guia;
+    let now = new Date();
+    let fecha = ("0"+now.getDate()).slice(-2)+"/"+
+                ("0"+(now.getMonth()+1)).slice(-2)+"/"+
+                now.getFullYear()+" "+
+                ("0"+now.getHours()).slice(-2)+":"+
+                ("0"+now.getMinutes()).slice(-2);
 
-    let now=new Date();
-    let fecha=("0"+now.getDate()).slice(-2)+"/"+
-              ("0"+(now.getMonth()+1)).slice(-2)+"/"+
-              now.getFullYear()+" "+
-              ("0"+now.getHours()).slice(-2)+":"+
-              ("0"+now.getMinutes()).slice(-2);
-
-    let info=`Axis MC Logística
+    let info = `Axis MC Logística
 Heredia, Costa Rica
 Teléfonos: 64541075 / 62532958
 Fecha: ${fecha}
 
 Pedido de: ${data.retiro}
-
 Cliente: ${data.cliente}
 Teléfono: ${data.telefono}
-
 Provincia: ${data.provincia}
 Cantón: ${data.canton}
+Señas: ${data.senas}
+Ubicación: ${data.ubicacion}
+Horario: ${data.horario}`;
 
-Señas:
-${data.senas}
+    document.getElementById("popupTexto").innerText = info;
+    document.getElementById("popup").style.display = "flex";
 
-Ubicación:
-${data.ubicacion}
-
-Horario:
-${data.horario}`;
-
-    document.getElementById("popupTexto").innerText=info;
-    document.getElementById("popup").style.display="flex";
-
-    btn.innerText="Guardar Pedido";
-    btn.disabled=false;
-    document.querySelectorAll("input").forEach(i=>i.value="");
-
-  }catch(err){
-    alert("Error al guardar pedido: "+err.message);
-    btn.innerText="Guardar Pedido";
-    btn.disabled=false;
-  }
+    btn.innerText = "Guardar Pedido";
+    btn.disabled = false;
+    document.querySelectorAll("input").forEach(i => i.value = "");
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Error al guardar pedido");
+    btn.innerText = "Guardar Pedido";
+    btn.disabled = false;
+  });
 }
 
-function cerrarPopup(){ document.getElementById("popup").style.display="none"; }
+function cerrarPopup(){ document.getElementById("popup").style.display = "none"; }
+
 function copiarInfo(){
-  let texto= document.getElementById("numeroGuia").innerText+"\n\n"+
-             document.getElementById("popupTexto").innerText;
+  let texto = document.getElementById("numeroGuia").innerText + "\n\n" + document.getElementById("popupTexto").innerText;
   navigator.clipboard.writeText(texto);
   alert("Información copiada");
 }
