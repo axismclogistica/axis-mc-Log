@@ -78,6 +78,19 @@ button:hover{
 background:#1d4ed8;
 }
 
+/* NUEVO */
+.terminos{
+margin-top:12px;
+font-size:12px;
+text-align:center;
+color:#cbd5e1;
+}
+
+.terminos a{
+color:#60a5fa;
+text-decoration:none;
+}
+
 .popup{
 position:fixed;
 top:0;
@@ -156,12 +169,20 @@ margin-bottom:15px;
 <input id="senas" placeholder="Ej: Casa blanca con portón negro frente a la pulpería">
 
 <label>Ubicación Google Maps</label>
-<input id="ubicacion" placeholder="Pegue aquí el link de Google Mapso waze">
+<input id="ubicacion" placeholder="Pegue aquí el link de Google Maps o Waze">
 
 <label>Horario de Entrega</label>
 <input id="horario" placeholder="Ej: 2pm a 5pm">
 
 <button id="btnEnviar" onclick="enviarPedido()">Guardar Pedido</button>
+
+<!-- NUEVO TEXTO DE TERMINOS -->
+<div class="terminos">
+Al enviar este pedido usted acepta los 
+<a href="https://github.com/axismclogistica/axis-mc-logistica/raw/main/T%C3%89RMINOS%20Y%20CONDICIONES%20DEL%20SERVICIO%20DE%20MENSAJER%C3%8DA%20Axis%20MC%20Log%C3%ADstica.pdf" target="_blank">
+Términos y Condiciones del servicio
+</a>.
+</div>
 
 </div>
 
@@ -233,24 +254,24 @@ horario:document.getElementById("horario").value
 try{
 
 await fetch(
-"https://script.google.com/macros/s/AKfycbyBq3OoRH8fbsxFPLNCNMvs2XEIosl36YZ_ir5OyZQrmXAEUxZ-u30AbDWyCRH_OIeqfA/exec",
+"https://script.google.com/macros/s/AKfycby4Lf4yle6J2saqHrQ2diDVUkIIINnGqWOzeVJG1Bdd86S6vE4LHtSJdAzs7w0V5tCcjw/exec",
 {
 method:"POST",
-mode:"no-cors",
+headers:{
+"Content-Type":"application/json"
+},
 body:JSON.stringify(data)
 });
 
 document.getElementById("numeroGuia").innerText="Guía: "+guia;
 
-// Fecha en formato dd/mm/yyyy hh:mm
 let now = new Date();
 let fecha = ("0"+now.getDate()).slice(-2)+"/"+
-            ("0"+(now.getMonth()+1)).slice(-2)+"/"+
-            now.getFullYear()+" "+
-            ("0"+now.getHours()).slice(-2)+":"+
-            ("0"+now.getMinutes()).slice(-2);
+("0"+(now.getMonth()+1)).slice(-2)+"/"+
+now.getFullYear()+" "+
+("0"+now.getHours()).slice(-2)+":"+
+("0"+now.getMinutes()).slice(-2);
 
-// Contenido del popup con info fija primero
 let info =
 `Axis MC Logística
 Heredia, Costa Rica
@@ -295,9 +316,7 @@ btn.disabled=false;
 }
 
 function cerrarPopup(){
-
 document.getElementById("popup").style.display="none";
-
 }
 
 function copiarInfo(){
