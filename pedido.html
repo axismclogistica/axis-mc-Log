@@ -78,7 +78,6 @@ button:hover{
 background:#1d4ed8;
 }
 
-/* NUEVO */
 .terminos{
 margin-top:12px;
 font-size:12px;
@@ -176,7 +175,6 @@ margin-bottom:15px;
 
 <button id="btnEnviar" onclick="enviarPedido()">Guardar Pedido</button>
 
-<!-- NUEVO TEXTO DE TERMINOS -->
 <div class="terminos">
 Al enviar este pedido usted acepta los 
 <a href="https://github.com/axismclogistica/axis-mc-logistica/raw/main/T%C3%89RMINOS%20Y%20CONDICIONES%20DEL%20SERVICIO%20DE%20MENSAJER%C3%8DA%20Axis%20MC%20Log%C3%ADstica.pdf" target="_blank">
@@ -199,7 +197,6 @@ Términos y Condiciones del servicio
 <div class="popup-buttons">
 
 <button onclick="copiarInfo()">Copiar</button>
-
 <button onclick="cerrarPopup()">Aceptar</button>
 
 </div>
@@ -253,20 +250,21 @@ horario:document.getElementById("horario").value
 
 try{
 
+let formData = new URLSearchParams(data);
+
 await fetch(
-"https://script.google.com/macros/s/AKfycbzNDbAavXOCgN7Kim9-OugyraAW20lEr2oCwVNmsVToI72NV4aCYreuKVNwab5Kyp0IdA/exec",
+"https://script.google.com/macros/s/AKfycbwlopYIkYc3OnBEQAW0bDS4gr-LPPt6WhUwbOcVvQ1CR-lEbJhofq1AgXBUyLHmyY8WOA/exec",
 {
 method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify(data)
+body:formData
 });
 
 document.getElementById("numeroGuia").innerText="Guía: "+guia;
 
 let now = new Date();
-let fecha = ("0"+now.getDate()).slice(-2)+"/"+
+
+let fecha =
+("0"+now.getDate()).slice(-2)+"/"+
 ("0"+(now.getMonth()+1)).slice(-2)+"/"+
 now.getFullYear()+" "+
 ("0"+now.getHours()).slice(-2)+":"+
